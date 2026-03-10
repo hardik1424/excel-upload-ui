@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Excel Upload Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background:linear-gradient(135deg,#eef2ff,#f8fafc);
+}
+
+.drop-area{
+border:2px dashed #6366f1;
+transition:all .25s;
+}
+
+.drop-area:hover{
+background:#eef2ff;
+border-color:#4338ca;
+}
+
+</style>
+
+</head>
+
+<body class="min-h-screen flex items-center justify-center">
+
+<div class="bg-white shadow-xl rounded-2xl p-8 w-full max-w-md">
+
+<h1 class="text-2xl font-bold text-center text-gray-800 mb-2">
+Upload Excel File
+</h1>
+
+<p class="text-gray-500 text-center mb-6">
+Upload orders or bank transaction sheet
+</p>
+
+<div id="dropArea" class="drop-area rounded-xl p-8 text-center cursor-pointer">
+
+<p class="text-gray-600 mb-2">
+Drag & Drop your Excel file
+</p>
+
+<p class="text-sm text-gray-400">
+or click to browse
+</p>
+
+<input id="fileInput" type="file" accept=".xlsx,.xls,.csv" class="hidden">
+
+</div>
+
+<div id="fileName" class="text-sm text-gray-600 mt-4 text-center"></div>
+
+<button id="uploadBtn"
+class="mt-6 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 rounded-lg font-semibold transition">
+
+Upload File
+
+</button>
+
+<div id="progressBox" class="mt-4 hidden">
+
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div id="progressBar" class="bg-indigo-600 h-2 rounded-full" style="width:0%"></div>
+</div>
+
+<p id="statusText" class="text-sm text-center text-gray-500 mt-2"></p>
+
+</div>
+
+</div>
+
+<script>
+
+const dropArea = document.getElementById("dropArea")
+const fileInput = document.getElementById("fileInput")
+const uploadBtn = document.getElementById("uploadBtn")
+const fileName = document.getElementById("fileName")
+const progressBox = document.getElementById("progressBox")
+const progressBar = document.getElementById("progressBar")
+const statusText = document.getElementById("statusText")
+
+let selectedFile = null
+
+dropArea.addEventListener("click", () => fileInput.click())
+
+fileInput.addEventListener("change", () => {
+
+selectedFile = fileInput.files[0]
+
+if(selectedFile){
+fileName.innerText = "Selected: " + selectedFile.name
+}
+
+})
+
+dropArea.addEventListener("dragover", (e)=>{
+e.preventDefault()
+})
+
+dropArea.addEventListener("drop", (e)=>{
+
+e.preventDefault()
+
+selectedFile = e.dataTransfer.files[0]
+
+fileName.innerText = "Selected: " + selectedFile.name
+
+})
+
+uploadBtn.addEventListener("click", async ()=>{
+
+if(!selectedFile){
+
+alert("Please select a file first")
+return
+
+}
+
+const formData = new FormData()
+
+formData.append("file",selectedFile)
+
+progressBox.classList.remove("hidden")
+
+statusText.innerText = "Uploading..."
+
+progressBar.style.width="30%"
+
+try{
+
+await fetch("https://YOUR-N8N-DOMAIN/webhook/upload-orders",{
+
+method:"POST",
+body:formData
+
+})
+
+progressBar.style.width="100%"
+
+statusText.innerText="Upload successful"
+
+}catch(err){
+
+statusText.innerText="Upload failed"
+
+}
+
+})
+
+</script>
+
+</body>
+</html>
