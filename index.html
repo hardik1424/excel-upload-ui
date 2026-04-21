@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TM Upload Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
@@ -18,7 +16,6 @@ body {
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
   padding: 20px;
 }
-
 .card {
   background: rgba(255,255,255,0.07);
   backdrop-filter: blur(24px);
@@ -26,44 +23,15 @@ body {
   border-radius: 24px;
   padding: 36px 32px;
   width: 100%;
-  max-width: 460px;
+  max-width: 480px;
   box-shadow: 0 25px 60px rgba(0,0,0,0.4);
 }
-
-h1 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
-  margin-bottom: 4px;
-}
-
-.subtitle {
-  text-align: center;
-  color: rgba(255,255,255,0.5);
-  font-size: 13px;
-  margin-bottom: 28px;
-}
-
-/* ── Store Selector ── */
-.store-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-
-.store-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
+h1 { font-size: 26px; font-weight: 700; color: #fff; text-align: center; margin-bottom: 4px; }
+.subtitle { text-align: center; color: rgba(255,255,255,0.5); font-size: 13px; margin-bottom: 28px; }
+.store-label { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.store-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
 .store-btn {
-  padding: 10px 6px;
+  padding: 12px 8px;
   border-radius: 12px;
   border: 1.5px solid rgba(255,255,255,0.15);
   background: rgba(255,255,255,0.05);
@@ -76,29 +44,13 @@ h1 {
   text-align: center;
   line-height: 1.4;
 }
-
-.store-btn:hover {
-  background: rgba(255,255,255,0.1);
-  color: #fff;
-  border-color: rgba(255,255,255,0.3);
-}
-
-.store-btn.active {
-  border-color: transparent;
-  color: #fff;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-}
-
-/* Store colors */
+.store-btn:hover { background: rgba(255,255,255,0.1); color: #fff; border-color: rgba(255,255,255,0.3); }
+.store-btn.active { border-color: transparent; color: #fff; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
 .store-btn[data-store="shopify_tmph"].active  { background: linear-gradient(135deg, #6366f1, #4f46e5); }
 .store-btn[data-store="shopify_tmf"].active   { background: linear-gradient(135deg, #f59e0b, #d97706); }
 .store-btn[data-store="website"].active       { background: linear-gradient(135deg, #10b981, #059669); }
-
-/* Store icons */
-.store-btn .icon { font-size: 18px; display: block; margin-bottom: 4px; }
-
-/* ── Drop Area ── */
+.store-btn[data-store="tmperfumeshouse"].active { background: linear-gradient(135deg, #ec4899, #be185d); }
+.store-btn .icon { font-size: 20px; display: block; margin-bottom: 4px; }
 .drop-area {
   border: 2px dashed rgba(255,255,255,0.2);
   border-radius: 16px;
@@ -109,26 +61,11 @@ h1 {
   background: rgba(255,255,255,0.03);
   margin-bottom: 10px;
 }
-
-.drop-area:hover, .drop-area.dragover {
-  border-color: rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.08);
-  transform: scale(1.01);
-}
-
+.drop-area:hover, .drop-area.dragover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08); transform: scale(1.01); }
 .drop-area .icon-big { font-size: 36px; margin-bottom: 8px; }
 .drop-area p { color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 500; }
 .drop-area small { color: rgba(255,255,255,0.4); font-size: 12px; }
-
-.file-name {
-  text-align: center;
-  font-size: 12px;
-  color: rgba(255,255,255,0.6);
-  min-height: 20px;
-  margin-bottom: 20px;
-}
-
-/* ── Upload Button ── */
+.file-name { text-align: center; font-size: 12px; color: rgba(255,255,255,0.6); min-height: 20px; margin-bottom: 20px; }
 .upload-btn {
   width: 100%;
   padding: 14px;
@@ -143,103 +80,45 @@ h1 {
   background: linear-gradient(135deg, #6366f1, #4f46e5);
   letter-spacing: 0.3px;
 }
-
-.upload-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(99,102,241,0.4);
-}
-
-.upload-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Dynamic button color based on store */
+.upload-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(99,102,241,0.4); }
+.upload-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 .upload-btn.tmph { background: linear-gradient(135deg, #6366f1, #4f46e5); }
 .upload-btn.tmf  { background: linear-gradient(135deg, #f59e0b, #d97706); }
 .upload-btn.web  { background: linear-gradient(135deg, #10b981, #059669); }
-
-/* ── Progress ── */
-.progress-box {
-  margin-top: 16px;
-  display: none;
-}
-
-.progress-track {
-  width: 100%;
-  height: 6px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 99px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 99px;
-  width: 0%;
-  transition: width 0.5s ease;
-  background: linear-gradient(90deg, #6366f1, #a78bfa);
-}
-
-.status-text {
-  text-align: center;
-  font-size: 13px;
-  color: rgba(255,255,255,0.7);
-  margin-top: 10px;
-}
-
-/* ── Active Store Badge ── */
-.active-store-badge {
-  text-align: center;
-  font-size: 11px;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 16px;
-}
-
-.active-store-badge span {
-  background: rgba(255,255,255,0.1);
-  padding: 3px 10px;
-  border-radius: 99px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.7);
-}
+.upload-btn.tmps { background: linear-gradient(135deg, #ec4899, #be185d); }
+.progress-box { margin-top: 16px; display: none; }
+.progress-track { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 99px; width: 0%; transition: width 0.5s ease; background: linear-gradient(90deg, #6366f1, #a78bfa); }
+.status-text { text-align: center; font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 10px; }
+.active-store-badge { text-align: center; font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+.active-store-badge span { background: rgba(255,255,255,0.1); padding: 3px 10px; border-radius: 99px; font-weight: 500; color: rgba(255,255,255,0.7); }
 </style>
 </head>
-
 <body>
 <div class="card">
-
   <h1>📦 Upload Orders</h1>
   <p class="subtitle">Select store, then upload your Excel file</p>
 
-  <!-- Store Selector -->
   <p class="store-label">Select Store</p>
   <div class="store-grid">
-
     <button class="store-btn active" data-store="shopify_tmph">
-      <span class="icon">🏪</span>
-      TMPerfume<br>House
+      <span class="icon">🏪</span>TMPerfume<br>House
     </button>
-
     <button class="store-btn" data-store="shopify_tmf">
-      <span class="icon">🌸</span>
-      TM<br>Fragrance
+      <span class="icon">🌸</span>TM<br>Fragrance
     </button>
-
     <button class="store-btn" data-store="website">
-      <span class="icon">🌐</span>
-      Website
+      <span class="icon">🌐</span>Website
     </button>
-
+    <button class="store-btn" data-store="tmperfumeshouse">
+      <span class="icon">💎</span>TMPerfumes<br>House
+    </button>
   </div>
 
-  <!-- Active Store Badge -->
   <div class="active-store-badge">
     Uploading to: <span id="storeBadge">TMPerfumeHouse</span>
   </div>
 
-  <!-- Drop Area -->
   <div class="drop-area" id="dropArea">
     <div class="icon-big">📂</div>
     <p>Drag & Drop File Here</p>
@@ -249,40 +128,38 @@ h1 {
 
   <div class="file-name" id="fileName"></div>
 
-  <!-- Upload Button -->
   <button class="upload-btn tmph" id="uploadBtn">Upload Now 🚀</button>
 
-  <!-- Progress -->
   <div class="progress-box" id="progressBox">
     <div class="progress-track">
       <div class="progress-fill" id="progressBar"></div>
     </div>
     <p class="status-text" id="statusText"></p>
   </div>
-
 </div>
 
 <script>
-// ── Webhooks ─────────────────────────────────────────────────
 const webhooks = {
-  shopify_tmph: "https://tmperfumehouse.app.n8n.cloud/webhook-test/upload-orders",
-  shopify_tmf:  "https://tmperfumehouse.app.n8n.cloud/webhook-test/39335432-c956-45c5-8d9a-a48dae4b15d9",
-  website:      "https://tmperfumehouse.app.n8n.cloud/webhook-test/d5ccc386-0372-4a37-b207-429fb8ff071d"
+  shopify_tmph:    "https://tmperfumehouse.app.n8n.cloud/webhook-test/upload-orders",
+  shopify_tmf:     "https://tmperfumehouse.app.n8n.cloud/webhook-test/39335432-c956-45c5-8d9a-a48dae4b15d9",
+  website:         "https://tmperfumehouse.app.n8n.cloud/webhook-test/d5ccc386-0372-4a37-b207-429fb8ff071d",
+  tmperfumeshouse: "https://tmperfumehouse.app.n8n.cloud/webhook-test/3508f8eb-fb2e-4d4e-8fbd-41c3dfcd91fa"
 };
 
 const storeNames = {
-  shopify_tmph: "TMPerfumeHouse",
-  shopify_tmf:  "TMFragrance",
-  website:      "Website"
+  shopify_tmph:    "TMPerfumeHouse",
+  shopify_tmf:     "TMFragrance",
+  website:         "Website",
+  tmperfumeshouse: "TMPerfumesHouse"
 };
 
 const btnColors = {
-  shopify_tmph: "tmph",
-  shopify_tmf:  "tmf",
-  website:      "web"
+  shopify_tmph:    "tmph",
+  shopify_tmf:     "tmf",
+  website:         "web",
+  tmperfumeshouse: "tmps"
 };
 
-// ── Elements ──────────────────────────────────────────────────
 const dropArea    = document.getElementById("dropArea");
 const fileInput   = document.getElementById("fileInput");
 const uploadBtn   = document.getElementById("uploadBtn");
@@ -293,37 +170,26 @@ const statusText  = document.getElementById("statusText");
 const storeBadge  = document.getElementById("storeBadge");
 const storeBtns   = document.querySelectorAll(".store-btn");
 
-let selectedFile     = null;
-let selectedStore    = "shopify_tmph";
+let selectedFile  = null;
+let selectedStore = "shopify_tmph";
 
-// ── Store Toggle ──────────────────────────────────────────────
 storeBtns.forEach(btn => {
   btn.onclick = () => {
     storeBtns.forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     selectedStore = btn.dataset.store;
     storeBadge.textContent = storeNames[selectedStore];
-
-    // Change upload button color
     uploadBtn.className = "upload-btn " + btnColors[selectedStore];
   };
 });
 
-// ── File Select ───────────────────────────────────────────────
 dropArea.onclick = () => fileInput.click();
-
 fileInput.onchange = () => {
   selectedFile = fileInput.files[0];
   fileNameEl.textContent = selectedFile ? "📄 " + selectedFile.name : "";
 };
-
-dropArea.ondragover = e => {
-  e.preventDefault();
-  dropArea.classList.add("dragover");
-};
-
+dropArea.ondragover = e => { e.preventDefault(); dropArea.classList.add("dragover"); };
 dropArea.ondragleave = () => dropArea.classList.remove("dragover");
-
 dropArea.ondrop = e => {
   e.preventDefault();
   dropArea.classList.remove("dragover");
@@ -331,31 +197,19 @@ dropArea.ondrop = e => {
   fileNameEl.textContent = "📄 " + selectedFile.name;
 };
 
-// ── Upload ────────────────────────────────────────────────────
 uploadBtn.onclick = async () => {
-  if (!selectedFile) {
-    alert("Please select a file first!");
-    return;
-  }
-
+  if (!selectedFile) { alert("Please select a file first!"); return; }
   const formData = new FormData();
   formData.append("file", selectedFile);
-
   progressBox.style.display = "block";
   progressBar.style.width = "20%";
+  progressBar.style.background = "linear-gradient(90deg, #6366f1, #a78bfa)";
   statusText.textContent = `Uploading to ${storeNames[selectedStore]}...`;
   uploadBtn.disabled = true;
-
   try {
     progressBar.style.width = "60%";
-
-    const res = await fetch(webhooks[selectedStore], {
-      method: "POST",
-      body: formData
-    });
-
+    const res = await fetch(webhooks[selectedStore], { method: "POST", body: formData });
     progressBar.style.width = "100%";
-
     if (res.ok) {
       statusText.textContent = `✅ Successfully uploaded to ${storeNames[selectedStore]}!`;
       progressBar.style.background = "linear-gradient(90deg, #10b981, #34d399)";
@@ -363,7 +217,6 @@ uploadBtn.onclick = async () => {
       statusText.textContent = "❌ Server error. Please try again.";
       progressBar.style.background = "linear-gradient(90deg, #ef4444, #f87171)";
     }
-
   } catch (err) {
     progressBar.style.width = "100%";
     statusText.textContent = "❌ Upload failed. Check your connection.";
